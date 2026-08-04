@@ -1,0 +1,34 @@
+# ASCII Banner Engine - Profile Configuration
+# Define named profiles for font+style combinations.
+# Usage: python banner_engine.py --profile hero "My Text"
+#
+# Each profile supports:
+#   font:    any pyfiglet font name (e.g. big, banner, slant)
+#   style:   one of the 18 style presets
+#   align:   left | center | right
+
+profiles:
+  hero:
+    font: big
+    style: neon-green
+    align: center
+
+  retro:
+    font: banner3
+    style: retro
+    align: left
+
+  ocean-wave:
+    font: slant
+    style: ocean
+    align: center
+
+  fire-lord:
+    font: block
+    style: fire-red
+    align: center
+
+  ice-king:
+    font: lean
+    style: ice
+    align: center
