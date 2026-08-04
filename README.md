@@ -221,15 +221,21 @@ ASCII Art Archive — Historical font collection
 📄 License
 MIT — Free to use, modify, and distribute.
 
-🚧 Roadmap
+---
+
+## 🚧 Roadmap
+
 Potential future features:
 
- Gradient color banners (multi-color lines)
- Animation frames (cycle fonts/styles)
- YAML config for saved font+style profiles
- Web API endpoint (Flask/FastAPI)
- Image export (PNG/JPEG via Pillow)
- Plugin system for custom renderers
+- [ ] Gradient color banners (multi-color lines)
+- [ ] Animation frames (cycle fonts/styles)
+- [ ] YAML config for saved font+style profiles
+- [ ] Web API endpoint (Flask/FastAPI)
+- [ ] Image export (PNG/JPEG via Pillow)
+- [ ] Plugin system for custom renderers
 
-Made for The Creator Alex — Honesty first. Audit everything. If it's not real, it doesn't belong.
+---
 
+**Go ahead and create some art.**
+
+**SUDOER - Alex** — Honesty first. Audit everything. If it's not real, it doesn't belong.
