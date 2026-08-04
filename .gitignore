@@ -18,3 +18,5 @@ banner_output/
 *.swo
 available_figlet_fonts.txt
 available_figlet_fonts.txt
+debug.log
+debug.log
