@@ -1,6 +1,6 @@
 # ASCII Banner Engine v1.0
 
-> Generate stunning ASCII text banners with auto-discovered pyfiglet fonts (typically 571+), 18 style presets, and intelligent terminal sizing.
+> Generate stunning ASCII text banners with auto-discovered pyfiglet fonts (typically 571+), 18 style presets, intelligent terminal sizing, and full engine diagnostics.
 
 
 ---
@@ -34,6 +34,18 @@ No hardcoded font dictionaries. The engine discovers all available pyfiglet font
 - Padding/Alignment: Left, center, right padding control
 - Real-time detection: Refreshes terminal width on window resize
 
+### Debug & Diagnostics (New!)
+
+Full transparency on engine state with new diagnostic tools:
+
+| Feature | Description |
+|---------|-------------|
+| `--debug` CLI flag | Run full engine diagnostics (terminal, fonts, styles, profiles) |
+| `--verbose <text>` | Render banner with detailed output (width, fit status, line count) |
+| `debug` command (interactive) | Run full diagnostics from interactive menu |
+| `debug: <text>` (interactive) | Render banner with per-render diagnostic info |
+| `debug.log` file | Automatic error logging with timestamps |
+
 ### Export Mode
 
 Render your text in every font and save to individual .txt files:
@@ -58,16 +70,18 @@ Verify:
 
 | Command | Description |
 |---------|-------------|
-| python3 banner_engine.py "<text>" | Quick render with default styling |
-| python3 banner_engine.py --demo | Basic banner examples |
-| python3 banner_engine.py --themes | Themed collections |
-| python3 banner_engine.py --styles | Show style preset gallery |
-| python3 banner_engine.py --sizes | SizeManager diagnostics |
-| python3 banner_engine.py --fonts | List all available fonts |
-| python3 banner_engine.py --compare <text> | Side-by-side font comparison |
-| python3 banner_engine.py --export <text> | Render all fonts to files |
-| python3 banner_engine.py --interactive | Full interactive menu |
-| python3 banner_engine.py --help | Show command reference |
+| `python3 banner_engine.py "<text>"` | Quick render with default styling |
+| `python3 banner_engine.py --demo` | Basic banner examples |
+| `python3 banner_engine.py --themes` | Themed collections |
+| `python3 banner_engine.py --styles` | Show style preset gallery |
+| `python3 banner_engine.py --sizes` | SizeManager diagnostics |
+| `python3 banner_engine.py --fonts` | List all available fonts |
+| `python3 banner_engine.py --compare <text>` | Side-by-side font comparison |
+| `python3 banner_engine.py --export <text>` | Render all fonts to files |
+| `python3 banner_engine.py --interactive` | Full interactive menu |
+| `python3 banner_engine.py --debug` | Run full engine diagnostics |
+| `python3 banner_engine.py --verbose <text>` | Render with detailed output |
+| `python3 banner_engine.py --help` | Show command reference |
 
 ### Interactive Mode
 
@@ -75,13 +89,15 @@ Verify:
 
 | Input | Action |
 |-------|--------|
-| <text> | Enter font + style prompts |
-| fonts | List all fonts |
-| styles | Show style presets |
-| sizes | Terminal size info |
-| compare <text> | Font comparison |
-| export <text> | Batch render |
-| quit | Exit |
+| `<text>` | Enter font + style prompts |
+| `fonts` | List all fonts |
+| `styles` | Show style presets |
+| `sizes` | Terminal size info |
+| `compare <text>` | Font comparison |
+| `export <text>` | Batch render |
+| `debug` | Run full engine diagnostics |
+| `debug: <text>` | Render with debug info |
+| `quit` | Exit |
 
 ---
 
@@ -149,11 +165,12 @@ Bonus: Any Rich color name works as a style input too!
 
 | Problem | Solution |
 |---------|----------|
-| ModuleNotFoundError: pyfiglet | Run pip install pyfiglet rich |
-| Font not found | Use --fonts to list available keys |
+| ModuleNotFoundError: pyfiglet | Run `pip install pyfiglet rich` |
+| Font not found | Use `--fonts` to list available keys |
 | Banner overflows terminal | Enable auto_fit=True or use smaller fonts |
 | Colors dont show | Ensure terminal supports ANSI colors |
-| UnicodeEncodeError on Windows | Set PYTHONIOENCODING=utf-8 |
+| UnicodeEncodeError on Windows | Set `PYTHONIOENCODING=utf-8` |
+| KeyboardInterrupt traceback | Now handled gracefully in v1.0+ |
 
 ---
 
@@ -162,6 +179,8 @@ Bonus: Any Rich color name works as a style input too!
     ASCII_Banner_Engine/
     +-- banner_engine.py
     +-- banner_output/
+    +-- config.yaml
+    +-- debug.log
     +-- README.md
 
 ---
@@ -181,9 +200,12 @@ MIT - Free to use, modify, and distribute.
 
 ## Roadmap
 
+- [x] Debug diagnostics mode
+- [x] Verbose render output
+- [x] Error logging to file
+- [x] Graceful interrupt handling
 - [ ] Gradient color banners (multi-color lines)
 - [ ] Animation frames (cycle fonts/styles)
-- [ ] YAML config for saved font+style profiles
 - [ ] Web API endpoint (Flask/FastAPI)
 - [ ] Image export (PNG/JPEG via Pillow)
 - [ ] Plugin system for custom renderers
