@@ -77,6 +77,7 @@ Verify:
 | `python3 banner_engine.py --sizes` | SizeManager diagnostics |
 | `python3 banner_engine.py --fonts` | List all available fonts |
 | `python3 banner_engine.py --compare <text>` | Side-by-side font comparison |
+| `python3 banner_engine.py --compare-styles <text>` | Compare style presets side-by-side |
 | `python3 banner_engine.py --export <text>` | Render all fonts to files |
 | `python3 banner_engine.py --interactive` | Full interactive menu |
 | `python3 banner_engine.py --debug` | Run full engine diagnostics |
@@ -94,6 +95,7 @@ Verify:
 | `styles` | Show style presets |
 | `sizes` | Terminal size info |
 | `compare <text>` | Font comparison |
+| `compare-styles <text>` | Compare style presets in grid |
 | `export <text>` | Batch render |
 | `debug` | Run full engine diagnostics |
 | `debug: <text>` | Render with debug info |
