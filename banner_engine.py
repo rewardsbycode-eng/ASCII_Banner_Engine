@@ -511,6 +511,50 @@ class ASCIIBannerEngine:
 
         console.print(preview_grid)
 
+    def compare_styles(self, text: str = "COMPARE", styles: list[str] | None = None) -> None:
+        """Compare multiple style presets side-by-side in a table."""
+        if styles is None:
+            styles = ["default", "clean", "neon-green", "heavy", "matrix", "royal", "bare"]
+
+        border_names = {
+            id(box.ROUNDED): "Rounded",
+            id(box.DOUBLE): "Double",
+            id(box.SQUARE): "Square",
+            id(box.HEAVY): "Heavy",
+            id(box.MINIMAL): "Minimal",
+            id(box.MINIMAL_DOUBLE_HEAD): "Min-Double",
+            id(box.DOUBLE_EDGE): "Dbl-Edge",
+            id(box.ASCII): "ASCII",
+            id(box.ASCII_DOUBLE_HEAD): "ASCII-Dbl",
+            id(box.SIMPLE_HEAD): "Simple-Hd",
+        }
+
+        grid = Table(
+            title=f"[bold magenta]Style Comparison — '{text}'[/bold magenta]",
+            box=box.MINIMAL_DOUBLE_HEAD,
+            show_lines=True,
+        )
+        grid.add_column("Style → Preview", style="white")
+
+        for style_name in styles:
+            preset = StyleManager.get(style_name)
+
+            border_label = "None" if preset["border"] is None else \
+                border_names.get(id(preset["border"]), "Unknown")
+
+            cell = f"[bold {preset['color']}]{style_name}[/bold {preset['color']}]\n"
+            cell += f"[dim]Color: {preset['color']} | Border: {border_label} | Align: {preset['align']}[/dim]\n"
+
+            art = self.generate(text.upper(), "small", auto_fit=True)
+            if art:
+                lines = art.splitlines()
+                preview = "\n".join(lines)
+                cell += f"[{preset['color']}]{preview}[/{preset['color']}]"
+
+            grid.add_row(cell)
+
+        console.print(grid)
+
     # ── Batch / Export ───────────────────────────────────────────────
 
     def render_all_fonts(self, text: str, output_dir: str = "./banner_output") -> None:
@@ -662,6 +706,7 @@ def interactive_menu():
         console.print("  [yellow]styles[/yellow]          - list style presets")
         console.print("  [yellow]sizes[/yellow]           - show size info")
         console.print("  [yellow]compare <text>[/yellow]   - compare sample fonts")
+        console.print("  [yellow]compare-styles <text>[/yellow] - compare style presets")
         console.print("  [yellow]export <text>[/yellow]     - render all fonts to files")
         console.print("  [yellow]profiles[/yellow]       - list saved profiles")
         console.print("  [yellow]create-config[/yellow] - generate config.yaml template")
@@ -690,6 +735,8 @@ def interactive_menu():
             console.print(f"[green]Best fit for 'SAMPLE TEXT': {best}[/green]")
         elif cmd == "compare":
             engine.compare_fonts(arg or "Hello")
+        elif cmd == "compare-styles":
+            engine.compare_styles(arg or "TEST")
         elif cmd == "export":
             text = arg or "EXPORT_DEMO"
             engine.render_all_fonts(text)
@@ -846,6 +893,9 @@ if __name__ == "__main__":
             elif cmd == "--compare":
                 ASCIIBannerEngine().compare_fonts(
                     sys.argv[2] if len(sys.argv) > 2 else "Hello")
+            elif cmd == "--compare-styles":
+                ASCIIBannerEngine().compare_styles(
+                    sys.argv[2] if len(sys.argv) > 2 else "TEST")
             elif cmd == "--interactive":
                 interactive_menu()
             elif cmd == "--fonts":
@@ -907,6 +957,7 @@ if __name__ == "__main__":
   [cyan]--styles[/cyan]          Style preset showcase
   [cyan]--sizes[/cyan]           SizeManager demo
   [cyan]--compare <text>[/cyan]  Compare fonts side-by-side
+  [cyan]--compare-styles <text>[/cyan]  Compare style presets
   [cyan]--fonts[/cyan]           List all available fonts
   [cyan]--export <text>[/cyan]   Render all fonts to ./banner_output/
   [cyan]--interactive[/cyan]    Full interactive menu
